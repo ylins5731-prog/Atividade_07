@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Aula 11 | ESP32 e LED virtual</title>
+</head>
+<body>
+  <header><div><p class="eyebrow">COMISSIONAMENTO VIRTUAL / AULA 11</p><h1>Uma placa. Dois ambientes.</h1><p>Controle o LED da ESP32 e acompanhe o estado informado pela placa.</p></div><span class="chip">ESP32 DEVKIT · GPIO 2</span></header>
+  <main>
+    <section class="visual" aria-label="Representação tridimensional da ESP32">
+      <div class="visual-top"><span id="fonte" class="badge">SEM CONEXÃO</span><span id="conexao">Selecione USB ou DEMO</span></div>
+      <canvas id="renderCanvas" aria-label="Placa ESP32 didática com LED de usuário"></canvas>
+      <div class="visual-bottom"><span><i id="ledIndicador"></i>LED GPIO 2 <strong id="estado">DESCONHECIDO</strong></span><span>Arraste para girar · role para aproximar</span></div>
+      <p class="caption">Modelo ilustrativo, sem escala dimensional. Em USB, o LED virtual acompanha ESTADO:0/1 recebido da ESP32.</p>
+    </section>
+    <section class="painel" aria-label="Controles de comissionamento">
+      <h2>Conectar e experimentar</h2>
+      <div class="fontes"><button id="conectar" class="primary">CONECTAR ESP32</button><button id="demo">INICIAR DEMO</button></div>
+      <p id="avisoFonte" class="nota">USB: firmware na placa, cabo de dados e Monitor Serial fechado. DEMO: simulação local, sem acionar hardware.</p>
+      <dl><div><dt>Funcionamento confirmado</dt><dd id="modo">—</dd></div><div><dt>Período confirmado</dt><dd id="confirmado">—</dd></div><div><dt>Frequência confirmada</dt><dd id="frequencia">—</dd></div><div><dt>Último estado recebido</dt><dd id="idade">—</dd></div></dl>
+      <label for="intervalo">Período solicitado <output id="intervaloValor">1000 ms</output></label>
+      <input id="intervalo" type="range" min="100" max="2000" step="100" value="1000" disabled>
+      <div class="escala"><span>100 ms / 10 Hz</span><span>2000 ms / 0,5 Hz</span></div>
+      <button id="aplicar" disabled>APLICAR PERÍODO</button>
+      <div class="acoes">
+  <button id="lento" disabled>LENTO</button>
+  <button id="rapido" disabled>RÁPIDO</button>
+</div>
+      <div class="acoes"><button id="iniciar" class="green" disabled>INICIAR PISCA</button><button id="parar" class="red" disabled>PARAR E APAGAR</button></div>
+      <button id="falha" disabled>SIMULAR PERDA DE DADOS</button>
+      <p id="mensagem" role="status">A placa começa piscando após a gravação, mesmo sem o navegador.</p>
+    </section>
+    <section class="protocolo"><div><h2>O caminho de cada comando</h2><p>Navegador → USB → ESP32 → GPIO 2 → resposta serial → LED virtual</p></div><code>B iniciar &nbsp; P parar &nbsp; T:500 período &nbsp; S consultar</code><details><summary>Ver mensagens transmitidas e recebidas</summary><pre id="log"></pre></details></section>
+  </main>
+  <footer>Estado reportado pelo firmware não é uma medição óptica do LED. Observe a placa durante o comissionamento.</footer>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
